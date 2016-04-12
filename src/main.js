@@ -59,14 +59,14 @@ Widget.initialState = () => {
           name: "gabriel.andretta@gmail.com",
           nickname: "gabriel.andretta",
           picture: "https:\/\/s.gravatar.com\/avatar\/05a4170856a6157f81319595e42fdc5b?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fga.png",
-          socialProviders: []
+          socialProviders: ["facebook"]
         },
         {
           email: "gabriel.andretta+18@gmail.com",
           name: "gabriel.andretta+18@gmail.com",
           nickname: "gnandretta",
           picture: "https:\/\/s.gravatar.com\/avatar\/c7d9610710f2ec82c65dca071de0e259?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fgn.png",
-          socialProviders: [],
+          socialProviders: ["github"],
           username: "gnandretta"
         },
         {
@@ -112,8 +112,69 @@ Widget.initialState = () => {
 
 Widget.state = Widget.state || Widget.initialState();
 
+
+
 Widget.render = () => {
-  const el = <div>content</div>;
+  var userData = Widget.state.users.recent;
+  var users = [];
+
+  function getLoading() {
+    return (
+      <div className="spinner spinner-center spinner-lg is-auth0">
+        <div className="circle"></div>
+      </div>
+    )
+  }
+
+  function getSocialProvider(current) {
+    if(current.socialProviders.length) {
+      return (
+        <span className="auth0-lock-social-button" data-provider={current.socialProviders[0]}>
+          <div className="auth0-lock-social-button-icon"></div>
+        </span>
+      )
+    }
+
+    return false;
+  }
+
+  for (var i = 0; i < userData.length; i++) {
+    var current = userData[i];
+
+    users.push(
+      <div key={'user-' + i} className="user">
+
+        <div className="tile">
+          <img src={current.picture} />
+          {getSocialProvider(current)}
+        </div>
+
+        <div className="information">
+          <a href="#" className="back"><i className="material-icons">keyboard_backspace</i></a>
+          <div className="content">
+            <img src={current.picture} />
+            <h2 className="name truncate">{current.name}</h2>
+            <p className="secondary">Frontend Developer</p>
+            <p className="additional">I like unicorns and bold fonts.</p>
+            <a className="btn btn-lg btn-success" href="#"><span className="btn-icon icon-budicon-493"></span>Look up</a>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const el = (
+    <div className="auth0-users-widget">
+      <h1>Latest Logins</h1>
+      <div className="grid clearfix">
+        {users}
+      </div>
+      <p className="footer">
+        22 users logged in today.
+      </p>
+    </div>
+  );
+
   ReactDOM.render(el, document.getElementById("container"));
 }
 

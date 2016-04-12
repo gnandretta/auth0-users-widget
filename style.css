@@ -1,7 +1,171 @@
 body {
-  background-color: #1f1f24;
-  font-family: "Avenir", sans-serif;
-  text-rendering: optimizeLegibility;
-  color: #525558;
-  font-size: 13px;
+  background: #222228;
+  text-align: center;
+  padding: 20px;
 }
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.back,
+.back:hover,
+.back:active,
+.back:focus {
+  background: white;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,.30);
+  border-radius: 50%;
+  border: 0;
+  display: block;
+  color: black;
+  height: 2.5rem;
+  width: 2.5rem;
+
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.back i {
+  line-height: 2.5rem;
+  font-size: 15px;
+}
+
+.has-shadow {
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.17);
+}
+
+.auth0-users-widget {
+  background: #fff;
+  width: 300px;
+  border-radius: 3px;
+  padding: 0 25px;
+  display: inline-block;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth0-users-widget h1 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.auth0-users-widget .grid {
+  background: #fafafa;
+  min-height: 250px;
+  margin: 10px 0;
+}
+
+.auth0-users-widget .information {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: 3;
+  text-align: center;
+  padding: 15px 25px;
+  font-size: 14px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.auth0-users-widget .information .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.auth0-users-widget .information img {
+  width: calc(100% / 3);
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.auth0-users-widget .information h2 {
+  font-size: 16px;
+  margin: 5px 0;
+  font-weight: 500;
+}
+
+/* fix for styleguide bug */
+.auth0-users-widget .information .btn-icon {
+  margin-left: -10px;
+}
+
+.auth0-users-widget .information .additional {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.auth0-users-widget .user {
+  width: calc(100% / 3);
+  float: left;
+}
+
+.auth0-users-widget .user .tile {
+  transition: transform 0.08s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  box-shadow: 0 0 0 1px white;
+  position: relative;
+}
+
+.auth0-users-widget .user:hover .tile {
+  transform: scale(1.15);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.17);
+  z-index: 300;
+}
+
+.auth0-users-widget .user img {
+  max-width: 100%;
+  min-width: calc(250px / 3);
+}
+
+.auth0-users-widget .user:last-child img {
+  border-radius: 0 0 3px 0;
+}
+
+.auth0-users-widget .user:nth-child(3) img {
+  border-radius: 0 3px 0 0;
+}
+
+.auth0-users-widget .user:first-child img {
+  border-radius: 3px 0 0 0;
+}
+
+.auth0-users-widget .user:nth-child(7) img {
+  border-radius: 0 0 0 3px;
+}
+
+.auth0-lock-social-button {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  border-radius: 50%;
+}
+
+.auth0-lock-social-button-icon {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+/* test */
+/*.auth0-users-widget .user:nth-child(2) .information {
+  display: block;
+}*/
