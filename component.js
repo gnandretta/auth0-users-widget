@@ -44,23 +44,39 @@ const UserItem = ({user}) => {
 };
 
 const UserGrid = ({users}) => (
- <span>{ users.map((x, i) => <UserItem key={i} user={x} />)}</span>
+  <span>
+    {users.map((x, i) => <UserItem key={i} user={x} />)}
+  </span>
 );
 
 const Stats = ({stats}) => (
   <span>22 users logged in today.</span>
 );
 
+const Error = () => <div>Error</div>;
 
 export default ({users, stats}) => {
+  const maybeStats = stats.loaded ? <Stats {...stats} /> : null;
+  const areLatestUsersSync = Array.isArray(users.latest);
+//    && users.latest.reduce((r, o) => r && typeof o.sync === "string", true);
+  const maybeLoading = !areLatestUsersSync ? <Loading /> : null;
+  const maybeError = users.error ? <Error /> : null;
+  const maybeLatestUsers = areLatestUsersSync
+    ? <UserGrid users={users.latest} />
+    : null;
+  // const maybeUser = users.selected ? <User /> : null;
+
   return (
     <div className="auth0-users-widget">
       <h1>Latest Logins</h1>
       <div className="grid clearfix">
-        <UserGrid users={users.recent} />
+        {maybeError}
+        {/*maybeUser*/}
+        {maybeLoading}
+        {maybeLatestUsers}
       </div>
       <p className="footer">
-        <Stats stats={stats} />
+        {maybeStats}
       </p>
     </div>
   );

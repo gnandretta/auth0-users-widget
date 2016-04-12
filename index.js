@@ -4,13 +4,13 @@ import Component from './component';
 
 const state = {
     stats: {
-      error: false,
+      loaded: true,
       logins: 43,
     },
     users: {
       error: false,
       full: true,
-      recent: [
+      latest: [
         {
           name: "Gabriel Andretta",
           nickname: "Gabriel Andretta",
