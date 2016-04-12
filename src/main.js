@@ -52,14 +52,14 @@ Widget.initialState = () => {
           name: "gabriel.andretta@gmail.com",
           nickname: "gabriel.andretta",
           picture: "https:\/\/s.gravatar.com\/avatar\/05a4170856a6157f81319595e42fdc5b?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fga.png",
-          socialProviders: []
+          socialProviders: ["github"]
         },
         {
           email: "gabriel.andretta@gmail.com",
           name: "gabriel.andretta@gmail.com",
           nickname: "gabriel.andretta",
           picture: "https:\/\/s.gravatar.com\/avatar\/05a4170856a6157f81319595e42fdc5b?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fga.png",
-          socialProviders: ["facebook"]
+          socialProviders: ["instagram"]
         },
         {
           email: "gabriel.andretta+18@gmail.com",
@@ -151,8 +151,12 @@ Widget.render = () => {
 
         <div className="information">
           <a href="#" className="back"><i className="material-icons">keyboard_backspace</i></a>
+
           <div className="content">
-            <img src={current.picture} />
+              <div className="picture">
+                <img src={current.picture} />
+                {getSocialProvider(current)}
+              </div>
             <h2 className="name truncate">{current.name}</h2>
             <p className="secondary">Frontend Developer</p>
             <p className="additional">I like unicorns and bold fonts.</p>
