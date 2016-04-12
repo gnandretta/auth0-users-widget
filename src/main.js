@@ -75,35 +75,6 @@ Widget.initialState = () => {
           nickname: "gabriel.andretta+17",
           picture: "https:\/\/s.gravatar.com\/avatar\/a2b30d4a1c5b82657f191ee24533fbd3?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fga.png",
           socialProviders: []
-        },
-        {
-          email: "gabriel.andretta+16@gmail.com",
-          name: "gabriel.andretta+16@gmail.com",
-          nickname: "gabriel.andretta+16",
-          picture: "https:\/\/s.gravatar.com\/avatar\/8e5de6e11045344267dbcd9ec746467c?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fga.png",
-          socialProviders: [],
-        },
-        {
-          email: "gabriel.andretta+15@gmail.com",
-          name: "gabriel.andretta+15@gmail.com",
-          nickname: "gabriel.andretta+15",
-          picture: "https:\/\/s.gravatar.com\/avatar\/ba0aa404d89e097a7c135e74217b9659?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fga.png",
-          socialProviders: []
-        },
-        {
-          email: "gabriel.andretta+14@gmail.com",
-          name: "gabriel.andretta+14@gmail.com",
-          nickname: "gabriel.andretta+14",
-          picture: "https:\/\/s.gravatar.com\/avatar\/2ee5b87c91f911c5734ece66eaba8ec0?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fga.png",
-          socialProviders: []
-        },
-        {
-          email: "gabriel.andretta+13@gmail.com",
-          name: "gabriel.andretta+13@gmail.com",
-          nickname: "gnandretta13",
-          picture: "https:\/\/s.gravatar.com\/avatar\/374b0873408e20cde31a6759ccc4c67b?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fgn.png",
-          socialProviders: [],
-          username: "gnandretta13"
         }
       ]
     }
@@ -122,6 +93,15 @@ Widget.render = () => {
     return (
       <div className="spinner spinner-center spinner-lg is-auth0">
         <div className="circle"></div>
+      </div>
+    )
+  }
+
+  function getError() {
+    return (
+      <div className="error">
+        <span className="circle"><span className="icon-budicon-414"></span></span>
+        <p>There was an error retrieving users. Please <a href="#">try again</a> later.</p>
       </div>
     )
   }
@@ -171,7 +151,7 @@ Widget.render = () => {
     <div className="auth0-users-widget">
       <h1>Latest Logins</h1>
       <div className="grid clearfix">
-        {users}
+        {getError()}
       </div>
       <p className="footer">
         22 users logged in today.
