@@ -79,7 +79,18 @@ const state = {
     }
 };
 
-ReactDOM.render(
-  <Component {...state} />,
-  document.getElementById("widget")
-);
+
+class Auth0UserWidget {
+
+  constructor(domain, token) {
+    this.domain = domain;
+    this.token = token;
+  }
+
+  render(el) {
+    ReactDOM.render(<Component {...state} />, el);
+  }
+
+}
+
+window.Auth0UserWidget = Auth0UserWidget;
