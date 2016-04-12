@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom';
 import Component from './component';
 
 const state = {
-    stats: {
-      loaded: true,
-      logins: 43,
-    },
+  stats: {},
     users: {
       error: false,
       full: true,
@@ -85,10 +82,47 @@ class Auth0UserWidget {
   constructor(domain, token) {
     this.domain = domain;
     this.token = token;
+    this.state = state;
+    this.getStats();
+  }
+
+  get(url, cb) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.setRequestHeader("Authorization", "Bearer " + this.token);
+    xhr.onerror = function() {
+      cb({})
+    };
+    xhr.onload = function() {
+      cb(null, JSON.parse(xhr.responseText));
+    };
+    xhr.send();
+  }
+
+  getStats() {
+    const url = "https://"
+      + this.domain
+      + "/api/v2/stats/daily"
+      + "?from="
+      + new Date().toISOString().substr(0, 10).replace(/-/g, '');
+
+    this.get(url, (err, res) => {
+      if (!err && res[0] && typeof res[0].logins !== "undefined") {
+        this.state.stats = {
+          loaded: true,
+          logins: res[0].logins
+        };
+        this.render();
+      } else {
+        // TODO
+      }
+    });
   }
 
   render(el) {
-    ReactDOM.render(<Component {...state} />, el);
+    if (el) this.el = el;
+    if (!this.el) return;
+    ReactDOM.render(<Component {...this.state} />, this.el);
   }
 
 }

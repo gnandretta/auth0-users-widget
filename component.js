@@ -49,9 +49,20 @@ const UserGrid = ({users}) => (
   </span>
 );
 
-const Stats = ({stats}) => (
-  <span>22 users logged in today.</span>
-);
+const Stats = ({logins}) => {
+  let msg;
+  switch(logins) {
+    case 0:
+      msg = "Nobody logged in today.";
+      break;
+    case 1:
+      msg = "1 user logged in today.";
+      break;
+    default:
+      msg = `${logins} users logged in today.`;
+  }
+  return <span>{msg}</span>
+};
 
 const Error = () => <div>Error</div>;
 
