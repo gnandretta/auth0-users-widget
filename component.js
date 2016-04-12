@@ -68,8 +68,8 @@ const Error = () => <div>Error</div>;
 
 export default ({users, stats}) => {
   const maybeStats = stats.loaded ? <Stats {...stats} /> : null;
-  const areLatestUsersSync = Array.isArray(users.latest);
-//    && users.latest.reduce((r, o) => r && typeof o.sync === "string", true);
+  const areLatestUsersSync = Array.isArray(users.latest)
+    && users.latest.reduce((r, o) => r && typeof o.sync === "string", true);
   const maybeLoading = !areLatestUsersSync ? <Loading /> : null;
   const maybeError = users.error ? <Error /> : null;
   const maybeLatestUsers = areLatestUsersSync
