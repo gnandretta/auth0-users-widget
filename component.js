@@ -52,6 +52,9 @@ const UserGrid = ({users}) => (
 const Stats = ({logins}) => {
   let msg;
   switch(logins) {
+    case undefined:
+      msg = "";
+      break;
     case 0:
       msg = "Nobody logged in today.";
       break;
@@ -61,13 +64,12 @@ const Stats = ({logins}) => {
     default:
       msg = `${logins} users logged in today.`;
   }
-  return <span>{msg}</span>
+  return !msg ? <span>&nbsp;</span> : <span>{msg}</span>;
 };
 
 const Error = () => <div>Error</div>;
 
 export default ({users, stats}) => {
-  const maybeStats = stats.loaded ? <Stats {...stats} /> : null;
   const areLatestUsersSync = Array.isArray(users.latest)
     && users.latest.reduce((r, o) => r && typeof o.sync === "string", true);
   const maybeLoading = !areLatestUsersSync ? <Loading /> : null;
@@ -87,7 +89,7 @@ export default ({users, stats}) => {
         {maybeLatestUsers}
       </div>
       <p className="footer">
-        {maybeStats}
+        <Stats {...stats} />
       </p>
     </div>
   );
