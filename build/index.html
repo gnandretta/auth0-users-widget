@@ -11,7 +11,13 @@
 <script>
  var w = new Auth0UsersWidget(
    "gnandretta.auth0.com",
-   localStorage.getItem("token")
+   localStorage.getItem("token"),
+   {
+     label: "look up",
+     handler: function(user) {
+       window.location.href = "https://google.com/search?q=" + encodeURIComponent(user.name);
+     }
+   }
  );
  w.render(document.getElementById("widget"));
 </script>
