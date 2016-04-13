@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Component from './component';
+import styleguide from './styleguide.css';
+import social from './social.css';
+import style from './style.css';
+import icon from './icon.css';
 
 const preloadImg = (src, cb = () => {}) => {
   const img = document.createElement("img");

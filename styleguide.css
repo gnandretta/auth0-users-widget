@@ -15718,7 +15718,7 @@ pre.prettyprint.prettyprinted {
   padding: 20px;
   border-radius: 3px;
   margin-bottom: 20px;
-  background-image: url("img/transparent.png");
+  /* background-image: url("img/transparent.png"); */
 }
 .logo-branding h5 {
   text-transform: uppercase;
@@ -15734,7 +15734,7 @@ pre.prettyprint.prettyprinted {
   margin-bottom: 20px;
 }
 .logo-branding.logo-dark {
-  background-image: url("img/transparent-dark.png");
+/*  background-image: url("img/transparent-dark.png"); */
 }
 .logo-branding a {
   font-weight: $font-weight-bold;
