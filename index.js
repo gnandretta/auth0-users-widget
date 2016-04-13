@@ -16,7 +16,7 @@ const state = {
 };
 
 
-class Auth0UserWidget {
+class Auth0UsersWidget {
 
   constructor(domain, token) {
     this.domain = domain;
@@ -111,4 +111,4 @@ class Auth0UserWidget {
 
 }
 
-window.Auth0UserWidget = Auth0UserWidget;
+window.Auth0UsersWidget = Auth0UsersWidget;
