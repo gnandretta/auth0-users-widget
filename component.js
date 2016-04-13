@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const Loading = () => (
   <div className="spinner spinner-center spinner-lg is-auth0">
@@ -85,6 +86,10 @@ class User extends React.Component {
       ? <SocialProvider str={user.socialProviders[0]} />
       : null;
 
+    const description = user.description
+      ? user.description
+      : <span>&nbsp;</span>;
+
     return (
       <div className={className}>
         <a onClick={clickHandler} href="#" className="back"><i className="material-icons">keyboard_backspace</i></a>
@@ -96,8 +101,8 @@ class User extends React.Component {
           </div>
 
           <h2 className="name truncate">{user.nickname}</h2>
-          <p className="secondary">Frontend Developer</p>
-          <p className="additional">I like unicorns and bold fonts.</p>
+          <p className="secondary">Last login {moment(user.lastLogin).fromNow()}</p>
+          <p className="additional">{description}</p>
           {maybeAction}
         </div>
       </div>

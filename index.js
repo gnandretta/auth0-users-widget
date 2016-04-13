@@ -67,7 +67,9 @@ class Auth0UsersWidget {
         this.state.users = {
           latest: res.map(function(o) {
             return {
+              description: o.description,
               email: o.email,
+              lastLogin: o.last_login,
               name: o.name,
               nickname: o.nickname,
               picture: o.picture,
