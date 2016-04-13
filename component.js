@@ -25,22 +25,6 @@ const UserItem = ({onClick, user}) => {
         <img src={user.picture} />
         {maybeSocialProvider}
       </div>
-
-      <div className="information">
-        <a href="#" className="back"><i className="material-icons">keyboard_backspace</i></a>
-
-        <div className="content">
-          <div className="picture">
-            <img src={user.picture} />
-            {maybeSocialProvider}
-          </div>
-
-          <h2 className="name truncate">{user.name}</h2>
-          <p className="secondary">Frontend Developer</p>
-          <p className="additional">I like unicorns and bold fonts.</p>
-          <a className="btn btn-lg btn-success" href="#"><span className="btn-icon icon-budicon-493"></span>Look up</a>
-        </div>
-      </div>
     </div>
   );
 };
@@ -51,9 +35,29 @@ const UserGrid = ({selectUser, users}) => (
   </span>
 );
 
-const User = ({user}) => (
-  <div>Selected user: {user.nickname}</div>
-);
+const User = ({user}) => {
+  const maybeSocialProvider = user.socialProviders.length > 0
+    ? <SocialProvider str={user.socialProviders[0]} />
+    : null;
+
+  return (
+    <div className="information fadeInRight animated">
+      <a href="#" className="back"><i className="material-icons">keyboard_backspace</i></a>
+
+      <div className="content">
+        <div className="picture">
+          <img src={user.picture} />
+          {maybeSocialProvider}
+        </div>
+
+        <h2 className="name truncate">{user.nickname}</h2>
+        <p className="secondary">Frontend Developer</p>
+        <p className="additional">I like unicorns and bold fonts.</p>
+        <a className="btn btn-lg btn-success" href="#"><span className="btn-icon icon-budicon-493"></span>Look up</a>
+      </div>
+    </div>
+  );
+};
 
 const Stats = ({logins}) => {
   let msg;
