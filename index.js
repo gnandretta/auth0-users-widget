@@ -10,18 +10,16 @@ const preloadImg = (src, cb = () => {}) => {
   return img;
 }
 
-const state = {
-  stats: {},
-  users: {}
-};
-
-
 class Auth0UsersWidget {
 
-  constructor(domain, token) {
+  constructor(domain, token, action) {
     this.domain = domain;
     this.token = token;
-    this.state = state;
+    this.state = {
+      action: action,
+      stats: {},
+      users: {}
+    }
     this.getStats();
     this.getUsers();
   }
@@ -85,7 +83,7 @@ class Auth0UsersWidget {
         };
         this.state.users.latest.forEach(o => {
           preloadImg(o.picture, (err, src) => {
-            state.users.latest = state.users.latest.map(o => {
+            this.state.users.latest = this.state.users.latest.map(o => {
               if (o.picture === src) {
                 o.sync = err ? "error" : "ok";
               }

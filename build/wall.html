@@ -66,6 +66,13 @@ body {
    document.body.appendChild(container);
    var w = new Auth0UsersWidget("domain", "token");
    w.state = state;
+   w.state.action = {
+     label: "Look Up",
+     handler: function(user) {
+       alert("looking up " + user.nickname);
+       console.log(user);
+     }
+   };
    w.render(document.getElementById(cid));
  }
 

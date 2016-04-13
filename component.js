@@ -50,15 +50,28 @@ class User extends React.Component {
   }
 
   render() {
-    let {user, selectUser} = this.props;
+    let {action, user, selectUser} = this.props;
 
     const clickHandler = e => {
       e.preventDefault();
 
       selectUser(undefined);
     }
+
     let className = user ? 'fadeInRight' : 'fadeOutRight';
     className += ' information animated';
+
+    const actionHandler = e => {
+      e.preventDefault();
+      action.handler(user);
+    };
+
+    const maybeAction = action !== undefined
+      ? <a className="btn btn-lg btn-success" href="#" onClick={actionHandler}>
+          <span className="btn-icon icon-budicon-493"></span>
+          {action.label}
+        </a>
+      : null;
 
     if (!user && !this.state.oldUser) {
       return <span></span>;
@@ -85,7 +98,7 @@ class User extends React.Component {
           <h2 className="name truncate">{user.nickname}</h2>
           <p className="secondary">Frontend Developer</p>
           <p className="additional">I like unicorns and bold fonts.</p>
-          <a className="btn btn-lg btn-success" href="#"><span className="btn-icon icon-budicon-493"></span>Look up</a>
+          {maybeAction}
         </div>
       </div>
     );
@@ -117,7 +130,7 @@ const Error = () => (
   </div>
 );
 
-export default ({users, selectUser, stats}) => {
+export default ({action, users, selectUser, stats}) => {
   const maybeError = users.error ? <Error /> : null;
   const areLatestUsersSync = Array.isArray(users.latest)
     && !users.error
@@ -128,8 +141,9 @@ export default ({users, selectUser, stats}) => {
   const maybeLatestUsers = areLatestUsersSync && !users.error
     ? <UserGrid users={users.latest} selectUser={selectUser}/>
     : null;
+
   const maybeUser = !users.error
-    ? <User user={users.selected} selectUser={selectUser} />
+    ? <User action={action} user={users.selected} selectUser={selectUser} />
     : null;
 
   return (
