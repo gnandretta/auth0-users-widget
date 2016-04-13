@@ -131,7 +131,7 @@ const Stats = ({logins}) => {
 const Error = () => (
   <div className="error">
     <span className="circle"><span className="icon-budicon-414"></span></span>
-    <p>There was an error retrieving users. Please <a href="#">try again</a> later.</p>
+    <p>There was an error retrieving users. Please try again later.</p>
   </div>
 );
 
