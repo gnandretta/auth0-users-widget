@@ -103,10 +103,21 @@ class Auth0UsersWidget {
     });
   }
 
+  selectUser(o) {
+    this.state.users.selected = o;
+    this.render();
+  }
+
   render(el) {
     if (el) this.el = el;
     if (!this.el) return;
-    ReactDOM.render(<Component {...this.state} />, this.el);
+    ReactDOM.render(
+      <Component
+        selectUser={this.selectUser.bind(this)}
+        {...this.state}
+      />,
+      this.el
+    );
   }
 
 }

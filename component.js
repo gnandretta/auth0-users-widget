@@ -12,13 +12,15 @@ const SocialProvider = ({str}) => (
   </span>
 );
 
-const UserItem = ({user}) => {
+const UserItem = ({onClick, user}) => {
   const maybeSocialProvider = user.socialProviders.length > 0
     ? <SocialProvider str={user.socialProviders[0]} />
     : null;
 
+  const clickHandler = () => onClick(user);
+
   return (
-    <div className="user">
+    <div className="user" onClick={clickHandler}>
       <div className="tile">
         <img src={user.picture} />
         {maybeSocialProvider}
@@ -43,10 +45,14 @@ const UserItem = ({user}) => {
   );
 };
 
-const UserGrid = ({users}) => (
+const UserGrid = ({selectUser, users}) => (
   <span>
-    {users.map((x, i) => <UserItem key={i} user={x} />)}
+    {users.map((x, i) => <UserItem key={i} user={x} onClick={selectUser} />)}
   </span>
+);
+
+const User = ({user}) => (
+  <div>Selected user: {user.nickname}</div>
 );
 
 const Stats = ({logins}) => {
@@ -74,22 +80,22 @@ const Error = () => (
   </div>
 );
 
-export default ({users, stats}) => {
+export default ({users, selectUser, stats}) => {
   const areLatestUsersSync = Array.isArray(users.latest)
     && users.latest.reduce((r, o) => r && typeof o.sync === "string", true);
   const maybeLoading = !areLatestUsersSync ? <Loading /> : null;
   const maybeError = users.error ? <Error /> : null;
   const maybeLatestUsers = areLatestUsersSync && !users.error
-    ? <UserGrid users={users.latest} />
+    ? <UserGrid users={users.latest} selectUser={selectUser}/>
     : null;
-  // const maybeUser = users.selected ? <User /> : null;
+  const maybeUser = users.selected ? <User user={users.selected} /> : null;
 
   return (
     <div className="auth0-users-widget">
       <h1>Latest Logins</h1>
       <div className="grid clearfix">
         {maybeError}
-        {/*maybeUser*/}
+        {maybeUser}
         {maybeLoading}
         {maybeLatestUsers}
       </div>
