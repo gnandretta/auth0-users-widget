@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<title>Auth0 Users Widget</title>
+<meta charset="utf-8">
+<!-- <link href="https://cdn.auth0.com/styleguide/latest/index.css" rel="stylesheet" /> -->
+<link href="styleguide.css" rel="stylesheet" />
+<link href="http://auth0.github.io/lock-social-icons/dist/index.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link href="style.css" rel="stylesheet" type="text/css">
+<style>
+body {
+  background-color: #1f1f24;
+}
+
+.info {
+  width: 300px;
+  float: left;
+  font-family: "Avenir", sans-serif;
+  text-rendering: optimizeLegibility;
+  text-align: left;
+}
+
+.info h2 {
+  font-size: 22px;
+  font-weight: normal;
+  color: #727578;
+}
+
+.info p {
+  color: #525558;
+  font-size: 13px;
+}
+
+.widget-container {
+  float: left;
+  padding: 20px 0 60px 20px;
+}
+
+</style>
+
+<div id="widget"></div>
+
+<script src="./bundle.js"></script>
+<script>
+ Auth0UsersWidget.prototype.getStats = function() {};
+ Auth0UsersWidget.prototype.getUsers = function() {};
+
+ function render(title, state) {
+   var container = document.createElement("div");
+   container.className = "container";
+
+   var info = document.createElement("div");
+   info.className = "info";
+   container.appendChild(info);
+
+   var h2 = document.createElement("h2");
+   h2.innerText = title;
+   info.appendChild(h2);
+
+   var widgetContainer = document.createElement("div");
+   widgetContainer.className = "widget-container";
+   var cid = "container-" + (document.getElementsByClassName("container").length + 1);
+   widgetContainer.id = cid;
+
+   container.appendChild(widgetContainer);
+
+   document.body.appendChild(container);
+   var w = new Auth0UsersWidget("domain", "token");
+   w.state = state;
+   w.render(document.getElementById(cid));
+ }
+
+ var users = {
+   barbu: {
+     email: "barbara@auth0.com",
+     name: "Bárbara Muñoz Cruzado",
+     nickname: "barbu",
+     picture: "https://s.gravatar.com/avatar/3b02263f5a5cb404c187f0d3f2dbbb19?s=480",
+     socialProviders: [],
+     sync: "ok",
+     username: "barbu"
+   },
+   beneliflo: {
+     email: "beneliflo@auth0.com",
+     name: "Benjamín Flores",
+     nickname: "el benja",
+     picture: "https://www.gravatar.com/avatar/35b47dce0e2c9ced8b500dca20e1a657.png?size=480",
+     socialProviders: ["facebook"],
+     sync: "ok",
+     username: "beneliflo"
+   },
+   bunny: {
+     email: "bunny@auth0.com",
+     name: "Yohanna Etchemendy",
+     nickname: "bunny",
+     picture: "https://es.gravatar.com/userimage/20584812/aa6c2ef56cd36ad3bc497ef8d39ec2f9.jpg?size=480",
+     socialProviders: ["google-oauth"],
+     sync: "ok",
+     username: "bunny"
+   },
+   douce: {
+     email: "dus@auth0.com",
+     name: "Cristian Douce",
+     nickname: "dus",
+     picture: "https://www.gravatar.com/avatar/34f27c88555c8c99b965d8137e16bfd9?size=480",
+     socialProviders: ["twitter"],
+     sync: "ok",
+     username: "douce"
+   },
+   klossy: {
+     email: "klossy@auth0.com",
+     name: "Karlie Kloss",
+     nickname: "karlie",
+     picture: "https://pbs.twimg.com/profile_images/711979086210539520/AOh5fBuR.jpg",
+     socialProviders: ["twitter"],
+     sync: "ok",
+     username: "klossy"
+   },
+   rr: {
+     email: "rr@auth0.com",
+     name: "Ricardo Rauch",
+     nickname: "Mago",
+     picture: "https://www.gravatar.com/avatar/27396b3fa24389198ef5d3e7e410e9c4?size=480",
+     socialProviders: [],
+     sync: "ok",
+     username: "ricky"
+   },
+   rolodato: {
+     email: "rolodato@auth0.com",
+     name: "Rodrigo Lopez Dato",
+     nickname: "rodrigo",
+     picture: "https://www.gravatar.com/avatar/75685fa1a59cef5672f0c0c16e260142.png?size=480",
+     socialProviders: [],
+     sync: "ok",
+     username: "rolodato"
+   },
+   sanntu: {
+     email: "sanntu@auth0.com",
+     name: "Santiago Escalante",
+     nickname: "sanntu",
+     picture: "http://secure.gravatar.com/avatar/d815d4be9b9141e345c458d32320d15b.jpg?s=480",
+     socialProviders: [],
+     sync: "ok",
+     username: "sanntu"
+   },
+   tehsis: {
+     email: "tehsis@auth0.com",
+     name: "Pablo Terradillos",
+     nickname: "tehsis",
+     picture: "https://www.gravatar.com/avatar/647b1eea820b3fc8a5aee0383930b888.png?size=480",
+     socialProviders: [],
+     sync: "ok",
+     username: "tehsis"
+   }
+ };
+ render("Loading", {users: {}, stats: {}});
+ render("Loading (with stats)", {users: {}, stats: {logins: 10}});
+ render("Error", {users: {error: true}, stats: {logins: 0}});
+ render("Users", {
+   users: {
+     latest: [
+       users.barbu,
+       users.rolodato,
+       users.rr,
+       users.beneliflo,
+       users.klossy,
+       users.douce,
+       users.tehsis,
+       users.bunny,
+       users.sanntu
+     ]
+   },
+   stats: {logins: 754}
+ });
+ render("Users (partial)", {
+   users: {
+     latest: [
+       users.barbu,
+       users.rr,
+       users.beneliflo,
+       users.douce
+     ]
+   },
+   stats: {logins: 3}
+ });
+</script>

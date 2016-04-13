@@ -85,14 +85,19 @@ const Error = () => (
 );
 
 export default ({users, selectUser, stats}) => {
-  const areLatestUsersSync = Array.isArray(users.latest)
-    && users.latest.reduce((r, o) => r && typeof o.sync === "string", true);
-  const maybeLoading = !areLatestUsersSync ? <Loading /> : null;
   const maybeError = users.error ? <Error /> : null;
+  const areLatestUsersSync = Array.isArray(users.latest)
+    && !users.error
+    && users.latest.reduce((r, o) => r && typeof o.sync === "string", true);
+  const maybeLoading = !areLatestUsersSync && !users.error
+    ? <Loading />
+    : null;
   const maybeLatestUsers = areLatestUsersSync && !users.error
     ? <UserGrid users={users.latest} selectUser={selectUser}/>
     : null;
-  const maybeUser = users.selected ? <User user={users.selected} /> : null;
+  const maybeUser = users.error && users.selected
+    ? <User user={users.selected} />
+    : null;
 
   return (
     <div className="auth0-users-widget">
