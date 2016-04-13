@@ -12,15 +12,19 @@ const SocialProvider = ({str}) => (
   </span>
 );
 
-const UserItem = ({onClick, user}) => {
+const UserItem = ({i, onClick, user}) => {
   const maybeSocialProvider = user.socialProviders.length > 0
     ? <SocialProvider str={user.socialProviders[0]} />
     : null;
 
   const clickHandler = () => onClick(user);
 
+  let css = {
+    animationDelay: (i * 50) + 'ms'
+  };
+
   return (
-    <div className="user" onClick={clickHandler}>
+    <div className="user animated fadeIn" style={css} onClick={clickHandler}>
       <div className="tile">
         <img src={user.picture} />
         {maybeSocialProvider}
@@ -31,34 +35,63 @@ const UserItem = ({onClick, user}) => {
 
 const UserGrid = ({selectUser, users}) => (
   <span>
-    {users.map((x, i) => <UserItem key={i} user={x} onClick={selectUser} />)}
+    {users.map((x, i) => <UserItem key={i} i={i} user={x} onClick={selectUser} />)}
   </span>
 );
 
-const User = ({user}) => {
-  const maybeSocialProvider = user.socialProviders.length > 0
-    ? <SocialProvider str={user.socialProviders[0]} />
-    : null;
+class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {oldUser: false}
+  }
 
-  return (
-    <div className="information fadeInRight animated">
-      <a href="#" className="back"><i className="material-icons">keyboard_backspace</i></a>
+  componentWillReceiveProps(nextProps) {
+    this.setState({oldUser: !nextProps.user && this.props.user});
+  }
 
-      <div className="content">
-        <div className="picture">
-          <img src={user.picture} />
-          {maybeSocialProvider}
+  render() {
+    let {user, selectUser} = this.props;
+
+    const clickHandler = e => {
+      e.preventDefault();
+
+      selectUser(undefined);
+    }
+    let className = user ? 'fadeInRight' : 'fadeOutRight';
+    className += ' information animated';
+
+    if (!user && !this.state.oldUser) {
+      return <span></span>;
+    }
+
+    if (!user) {
+      user = this.state.oldUser;
+    }
+
+    const maybeSocialProvider = user.socialProviders.length > 0
+      ? <SocialProvider str={user.socialProviders[0]} />
+      : null;
+
+    return (
+      <div className={className}>
+        <a onClick={clickHandler} href="#" className="back"><i className="material-icons">keyboard_backspace</i></a>
+
+        <div className="content">
+          <div className="picture">
+            <img src={user.picture} />
+            {maybeSocialProvider}
+          </div>
+
+          <h2 className="name truncate">{user.nickname}</h2>
+          <p className="secondary">Frontend Developer</p>
+          <p className="additional">I like unicorns and bold fonts.</p>
+          <a className="btn btn-lg btn-success" href="#"><span className="btn-icon icon-budicon-493"></span>Look up</a>
         </div>
-
-        <h2 className="name truncate">{user.nickname}</h2>
-        <p className="secondary">Frontend Developer</p>
-        <p className="additional">I like unicorns and bold fonts.</p>
-        <a className="btn btn-lg btn-success" href="#"><span className="btn-icon icon-budicon-493"></span>Look up</a>
       </div>
-    </div>
-  );
-};
+    );
 
+  }
+}
 const Stats = ({logins}) => {
   let msg;
   switch(logins) {
@@ -74,7 +107,7 @@ const Stats = ({logins}) => {
     default:
       msg = `${logins} users logged in today.`;
   }
-  return !msg ? <span>&nbsp;</span> : <span>{msg}</span>;
+  return !msg ? <span>&nbsp;</span> : <span className="animated fadeIn">{msg}</span>;
 };
 
 const Error = () => (
@@ -95,8 +128,8 @@ export default ({users, selectUser, stats}) => {
   const maybeLatestUsers = areLatestUsersSync && !users.error
     ? <UserGrid users={users.latest} selectUser={selectUser}/>
     : null;
-  const maybeUser = users.error && users.selected
-    ? <User user={users.selected} />
+  const maybeUser = !users.error
+    ? <User user={users.selected} selectUser={selectUser} />
     : null;
 
   return (
