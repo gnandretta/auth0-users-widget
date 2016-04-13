@@ -143,6 +143,26 @@ body {
   min-width: calc(250px / 3);
 }
 
+.auth0-users-widget .error {
+  text-align: center;
+  padding: 20px;
+}
+
+
+.auth0-users-widget .error .circle {
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  background: white;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 7rem;
+  margin: 10px 0;
+  margin-top: 40px;
+  background: #FF3E00;
+  color: white;
+}
+
 .auth0-users-widget .user:last-child img {
   border-radius: 0 0 3px 0;
 }
@@ -179,6 +199,6 @@ body {
 }
 
 /* test */
-/* .auth0-users-widget .user:nth-child(2) .information { */
-/*   display: block; */
-/* } */
+/*.auth0-users-widget .user:nth-child(2) .information {
+  display: block;
+}*/

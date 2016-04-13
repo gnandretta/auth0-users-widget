@@ -67,14 +67,19 @@ const Stats = ({logins}) => {
   return !msg ? <span>&nbsp;</span> : <span>{msg}</span>;
 };
 
-const Error = () => <div>Error</div>;
+const Error = () => (
+  <div className="error">
+    <span className="circle"><span className="icon-budicon-414"></span></span>
+    <p>There was an error retrieving users. Please <a href="#">try again</a> later.</p>
+  </div>
+);
 
 export default ({users, stats}) => {
   const areLatestUsersSync = Array.isArray(users.latest)
     && users.latest.reduce((r, o) => r && typeof o.sync === "string", true);
   const maybeLoading = !areLatestUsersSync ? <Loading /> : null;
   const maybeError = users.error ? <Error /> : null;
-  const maybeLatestUsers = areLatestUsersSync
+  const maybeLatestUsers = areLatestUsersSync && !users.error
     ? <UserGrid users={users.latest} />
     : null;
   // const maybeUser = users.selected ? <User /> : null;
