@@ -2,19 +2,19 @@
 
 ## Development
 
-To setup the development enviroment run the following commands (one
+To setup the development enviroment run the following command (one
 time).
 
 ```sh
-npm install -g babel-cli
-npm install  babel-preset-react babel-preset-es2015
+npm install
 ```
 
 Then run the following command tu compile the JS automatically when
 the source changes.
 
 ```sh
-babel src/ -w --out-dir build/
+npm start
 ```
 
-Finally open _index.html_ in your favourite browser.
+Finally open _http://localhost:8080/_ or _http://localhost:8080/wall.html_
+in your favourite browser.
